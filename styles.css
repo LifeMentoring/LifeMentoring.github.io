@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;1,100;1,300;1,500&display=swap');
+
+
+*
+{
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    
+    color: #333;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+body
+{
+    /* height: 100vh; */
+}
+h1
+{
+    font-weight: 300;
+}
+h2
+{
+    font-weight: 400;
+    margin: 10px;
+    font-size: 1.3em;
+}
+h3
+{
+    font-weight: 300;
+    margin: 6px;
+}
+.Background-Container
+{
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+}
+.background-image
+{
+    opacity: .6;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    min-height: 100vh;
+    min-width: 100vw;
+}
+.MainScreen
+{
+    display: grid;
+    height: 100vh;
+    grid-template-rows: 10vh;
+}
+
+.hidden 
+{
+    display: none !important; 
+    /* visibility: collapse;
+    position: absolute; */
+}
+
+/* HEADER */
+.main-header
+{
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    column-gap: 5px;
+    align-items: center;
+    position: relative;
+    /* margin-top: 10px; */
+}
+
+.main-header .main-logo
+{    
+    justify-self: right;
+    align-self: center;
+    filter:brightness(10);
+    margin: 15px;
+    max-height: 8vh;
+    width: auto;
+}
+
+.main-header button
+{
+    justify-self: left;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    filter:brightness(10);
+
+    height: auto;
+    width: 100%;
+}
+.main-header button img
+{
+    padding: 15%;
+    max-height: 8vh;
+    /* max-height: 70px; */
+    width: auto;
+}
+
+/* CONTENT BODY */
+
+.main-container
+{
+    position: relative;
+    margin: 8%;
+    margin-bottom: 10%;
+}
+
+.Screen-Container
+{
+    box-sizing: content-box;
+    position: relative;
+    display: grid;
+    grid-template-rows: 25%;
+    grid-template-columns: 100%;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    /* display: flex;
+    flex-direction: column; */
+    height: 95%;
+}
+.Screen-Heading-Container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.content-container
+{
+    background-color: rgba(51, 51, 51, 0.158);
+    display: flex;
+    height: 100%;
+    width: 80%;
+    
+}
