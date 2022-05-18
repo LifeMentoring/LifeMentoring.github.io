@@ -10,6 +10,10 @@ else
 
 let CurrentIndex = 0;
 let Screens;
+
+let ValueCard;
+let startTouchLocationX;
+let startTouchLocationY;
 function Setup()
 {
     Screens = document.getElementsByClassName('Screen-Container');
@@ -26,9 +30,33 @@ function Setup()
     {
         PreviousButton.addEventListener('click', PreviousClicked);
     }
+    
+    ValueCard = document.getElementById("ValueCard");
+    // Add the ondragstart event listener
+    ValueCard.addEventListener("touchmove", TouchMove);
+    ValueCard.addEventListener("touchstart", TouchStart);
 }
 
-
+function TouchStart(event)
+{    
+    console.log("start");    
+    var touchLocation = event.targetTouches[0];
+    startTouchLocationX = touchLocation.pageX - ValueCard.style.left;
+    startTouchLocationY = touchLocation.pageY - ValueCard.style.top;
+    event.preventDefault();
+}
+function TouchMove(event)
+{    
+    console.log("drag");   
+    var touchLocation = event.targetTouches[0];
+    
+    let NewX = touchLocation.pageX - (startTouchLocationX / 2.0);
+    let NewY = touchLocation.pageY - (startTouchLocationY / 2.0);
+    ValueCard.style.left = (NewX) + 'px';
+    ValueCard.style.top = (NewY) + 'px';
+    
+    event.preventDefault(); 
+}
 
 
 function NextClicked()
