@@ -6,7 +6,7 @@
     font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
     
-    color: #333;
+    color: #3b3b3b;
 }
 
 html, body{
@@ -20,6 +20,7 @@ body
 h1
 {
     font-weight: 300;
+    font-size: 1.6rem;
 }
 h2
 {
@@ -40,22 +41,26 @@ h3
     overflow: hidden;
     top: 0;
     bottom: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .background-image
 {
-    opacity: .6;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    min-height: 100vh;
-    min-width: 100vw;
+    opacity: .7;
+    min-height:100%;
+    min-width: 100%;
+    object-fit: cover;
+    /* Blur ?? */
+    filter:blur(4px);
 }
 .MainScreen
 {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     height: 100vh;
-    grid-template-rows: 10vh;
+    /* grid-template-rows: 10vh; */
 }
 
 .hidden 
@@ -69,48 +74,61 @@ h3
 .main-header
 {
     margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    column-gap: 5px;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
-    /* margin-top: 10px; */
+    max-height: 80px;
 }
 
-.main-header .main-logo
-{    
-    justify-self: right;
-    align-self: center;
-    filter:brightness(10);
+.main-header-item
+{
     margin: 15px;
-    max-height: 8vh;
-    width: auto;
+    /* border: solid 5px white; */
+    
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 70%;
+    width: 100%;
+    flex-grow: .7;
+    flex-basis: 0;
+    
 }
-
+.header-title
+{
+    flex-grow: 2;
+    flex-basis: 0;
+    
+}
 .main-header button
 {
-    justify-self: left;
     border: none;
     background-color: transparent;
+    justify-self: left;   
     cursor: pointer;
-    filter:brightness(10);
-
-    height: auto;
-    width: 100%;
+    height: 50%;
+    flex-grow: 0.1;
+    margin-right: 1.5em;
 }
-.main-header button img
+.MenuButton
 {
-    padding: 15%;
-    max-height: 8vh;
-    /* max-height: 70px; */
-    width: auto;
+    background-image: url('Images/MenuButton.png');
+    background-position: left;
 }
+.main-logo
+{       
+    background-image: url('Images/Life-Mentoring-Icon-Only-Logo-Grey.png');
+    background-position: right;
+}
+
 
 /* CONTENT BODY */
 
 .main-container
 {
     position: relative;
+    flex-grow: 1;
+    flex-shrink: 1;
     margin: 8%;
     margin-bottom: 10%;
 }
