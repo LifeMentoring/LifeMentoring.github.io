@@ -1,3 +1,10 @@
+import {Screen_SelectValues} from './Screen_SelectValues.js'
+import {Screen_Base} from './Screen_Base.js'
+// import {Screen_Base} from './Screen_Base.js'
+
+let CurrentIndex = 0;
+let Screens = [];
+
 
 if (document.readyState == 'loading')
 {
@@ -8,18 +15,14 @@ else
     Setup();
 }
 
-let CurrentIndex = 0;
-let Screens;
-
-let ValueCard = document.getElementById("ValueCard");
-
-let DifferenceX;
-let DifferenceY;
-
 function Setup()
 {
-    Screens = document.getElementsByClassName('Screen-Container');
-    ChangeScreen(CurrentIndex);
+    let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues');
+    let RefineValuesScreen = new Screen_Base('Screen-RefineValues');
+    
+    Screens.push(SelectValuesScreen);
+    Screens.push(RefineValuesScreen);
+    
     
     const NextButton = document.getElementById('NextButton');
     if (NextButton)
@@ -33,54 +36,12 @@ function Setup()
         PreviousButton.addEventListener('click', PreviousClicked);
     }
     
-    ValueCard = document.getElementById("ValueCard");
-    // Add the ondragstart event listener
-    ValueCard.addEventListener("touchmove", TouchMove);
-    ValueCard.addEventListener("touchstart", TouchStart);
-	
-	ValueCard.style.left = "10%";
-	ValueCard.style.top = "30%";
+    // SelectValuesScreen.SetVisiblity(false);
+    
+    // Screens = document.getElementsByClassName('Screen-Container');
+    //ChangeScreen(CurrentIndex);
 }
 
-function TouchStart(event)
-{    
-    console.log("start");    
-    var touchLocation = event.targetTouches[0];
-	var rect = ValueCard.getBoundingClientRect();
-	ValueCard.parentElement.getBoundingClientRect();
-	
-	ValueCard.style.marginTop;
-	
-	DifferenceX = rect.left - touchLocation.pageX;
-	DifferenceY = rect.top - touchLocation.pageY;
-	
-	CreateDebugBlock(ValueCard.style.left + DifferenceX, ValueCard.style.top + DifferenceY, "green", document.firstChild);
-	// CreateDebugBlock(touchLocation.pageX, touchLocation.pageY, "purple", document.firstChild);
-			
-    event.preventDefault();
-}
-function TouchMove(event)
-{    
-    console.log("drag");   
-    var touchLocation = event.targetTouches[0];
-	console.log("New touch x: " + touchLocation.pageX + " y: " + touchLocation.pageY);
-    
-	var rect = ValueCard.getBoundingClientRect();	
-	
-    let NewX = touchLocation.pageX + DifferenceX;
-    let NewY = touchLocation.pageY + DifferenceY;
-	console.log("New x: " + NewX + " y: " + NewY);
-	
-    ValueCard.style.left = NewX + 'px';
-    ValueCard.style.top = NewY + 'px';
-	const EndX = rect.left + (rect.right - rect.left) / 2;
-	const EndY = rect.bottom - (rect.bottom - rect.top) / 2;
-	// CreateDebugBlock(rect.left, rect.top, "pink", document.firstChild);
-	// CreateDebugBlock(touchLocation.pageX, touchLocation.pageY, "blue", document.firstChild);
-	// CreateDebugBlock(EndX, EndY, "blue", document.firstChild);
-    
-    event.preventDefault(); 
-}
 
 function CreateDebugBlock(posX, posY, color, parent)
 {
@@ -112,8 +73,8 @@ function ChangeScreen(screenIndex)
     }
     if (CurrentIndex < Screens.length)
     {
-        Screens[CurrentIndex].classList.add('hidden');
+        Screens[CurrentIndex].SetVisibility(false);
     }
     CurrentIndex = screenIndex;
-    Screens[CurrentIndex].classList.remove('hidden');
+    Screens[CurrentIndex].SetVisibility(true);
 }

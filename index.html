@@ -5,7 +5,9 @@
 
         <meta name="description" content="Practicing and learning Web Development">
         <link rel="stylesheet" href="styles.css"/>
-        <script src="script.js" async></script>
+        <script type="module" src="Screen_Base.js" async></script>
+        <script type="module" src="Screen_SelectValues.js" async></script>
+        <script type="module" src="script.js" async></script>
     </head>
     <body>
         <div class="Background-Container">
@@ -21,18 +23,18 @@
                 <!-- <img class="main-header-item main-logo" width="60px" src="Images/Life-Mentoring-Icon-Only-Logo-White.png"> -->
             </header>
             <div class="main-container">
-                <div class="Screen-Container Screen-1">
+                <div id="Screen-SelectValues" class="Screen-Container Screen-1">
                     <div class="Screen-Heading-Container">
                         <h2>Is this value important to you</h2>
                         <h3>Drag and Drop</h3>
                     </div>
                     <div class="content-container">
-                        <!-- <div id="ValueCard" class="ValueCard">
+                        <div id="ValueCard" class="ValueCard">
                             <h1>Honesty</h1>
-                        </div> -->
+                        </div>
                     </div>
                 </div>
-                <div class="Screen-Container Screen-2 hidden">
+                <div id="Screen-RefineValues"  class="Screen-Container Screen-2 hidden">
                     <div class="Screen-Heading-Container">
                         <h2>Refine your options</h2>
                         <h3>12 - 15</h3>
@@ -60,8 +62,8 @@
                 <button id="NextButton">Next Test</button>
             </div>
         </div>
-		<div id="ValueCard" class="ValueCard">
+		<!-- <div id="ValueCard" class="ValueCard">
 			<h1>Honesty</h1>
-		</div>
+		</div> -->
     </body>
 </html>
