@@ -1,6 +1,9 @@
 import {Screen_SelectValues} from './Screen_SelectValues.js'
+import {Screen_RefineValues} from './Screen_RefineValues.js'
 import {Screen_Base} from './Screen_Base.js'
-// import {Screen_Base} from './Screen_Base.js'
+
+const TicksPerSecond = 60;
+const DeltaTime = 1 / 60;
 
 let CurrentIndex = 0;
 let Screens = [];
@@ -18,10 +21,14 @@ else
 function Setup()
 {
     let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues');
-    let RefineValuesScreen = new Screen_Base('Screen-RefineValues');
+    let RefineValuesScreen = new Screen_RefineValues('Screen-RefineValues');
+    let CompareValuesScreen = new Screen_Base('Screen-CompareValues');
+    let TopValuesScreen = new Screen_Base('Screen-TopValues');
     
     Screens.push(SelectValuesScreen);
     Screens.push(RefineValuesScreen);
+    Screens.push(CompareValuesScreen);
+    Screens.push(TopValuesScreen);
     
     
     const NextButton = document.getElementById('NextButton');
@@ -36,12 +43,16 @@ function Setup()
         PreviousButton.addEventListener('click', PreviousClicked);
     }
     
-    // SelectValuesScreen.SetVisiblity(false);
-    
-    // Screens = document.getElementsByClassName('Screen-Container');
-    //ChangeScreen(CurrentIndex);
+    ChangeScreen(CurrentIndex);
+	
+	setInterval(Tick, DeltaTime, DeltaTime);
+	
 }
 
+function Tick(DeltaTime)
+{
+	Screens[CurrentIndex].Tick(DeltaTime);
+}
 
 function CreateDebugBlock(posX, posY, color, parent)
 {
@@ -65,7 +76,8 @@ function PreviousClicked()
 }
 
 function ChangeScreen(screenIndex)
-{
+{	
+	
     if (screenIndex >= Screens.length || screenIndex < 0)
     {
         // Invalid

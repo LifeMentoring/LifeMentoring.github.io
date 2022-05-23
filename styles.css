@@ -178,7 +178,35 @@ h3
     align-items: center;
     justify-self: center;
     /* margin-top: 40%; */
-    width: 100px; 
-    height: 100px;
+    width: 150px; 
+    height: 150px;
     border-radius: 50%;
+}
+
+.Swipe-End
+{
+    position: absolute;
+    background-color: rgba(51, 51, 51, 0.158);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
+    /* margin-top: 40%; */
+    width: 100px; 
+    height: 200px;
+    border-radius: 50%;
+}
+
+.Swipe-Left
+{
+	left: -25%;
+    justify-content:flex-end;
+	padding: 15px;
+}
+.Swipe-Right
+{
+	right: -25%;
+    justify-content:flex-start;
+	padding: 15px;
 }

@@ -10,6 +10,9 @@ class Screen_SelectValues extends Screen_Base
         // Add the ondragstart event listener
         ValueCard.addEventListener("touchmove", this.TouchMove);
         ValueCard.addEventListener("touchstart", this.TouchStart);
+		
+		this.DropSection_No = document.getElementById("DropSection_No");
+		this.DropSection_Yes = document.getElementById("DropSection_Yes");
         
         this.CurrentPositionX = 100;
         this.CurrentPositionY = 200;
@@ -22,6 +25,12 @@ class Screen_SelectValues extends Screen_Base
         this.DifferenceY = 0;
 
     }
+	Tick(DeltaTime)
+	{
+		//super(DeltaTime);
+		
+		
+	}
     
     
     TouchStart(event)

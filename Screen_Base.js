@@ -4,21 +4,9 @@ class Screen_Base
     {
         this.Element = document.getElementById(ElementID);
         
-        
-        // this.SetVisiblity = function(visible)
-        // {
-        //     if (visible)
-        //     {
-        //         this.Element.classList.remove('hidden');
-        //     }
-        //     else
-        //     {
-        //         this.Element.classList.add('hidden');
-        //     }
-        // }
     }
     
-    SetVisiblity(visible)
+    SetVisibility(visible)
     {
         if (visible)
         {
@@ -29,6 +17,11 @@ class Screen_Base
             this.Element.classList.add('hidden');
         }
     }
+	
+	Tick(DeltaTime)
+	{
+		
+	}
 }
 
 
