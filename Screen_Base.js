@@ -20,7 +20,7 @@ class Screen_Base
 	
 	Tick(DeltaTime)
 	{
-		
+        
 	}
 }
 
