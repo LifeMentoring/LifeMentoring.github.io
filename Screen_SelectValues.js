@@ -3,30 +3,32 @@ import {elementsOverlap} from './utils.js'
 
 class Screen_SelectValues extends Screen_Base
 {
+	
     constructor(ElementID)
     {
         super(ElementID);
         
         this.ValueCard = document.getElementById("ValueCard");
-        // Add the ondragstart event listener
-        ValueCard.addEventListener("touchmove", this.TouchMove);
-        ValueCard.addEventListener("touchstart", this.TouchStart);
-		
 		this.DropSection_No = document.getElementById("DropSection_No");
 		this.DropSection_Yes = document.getElementById("DropSection_Yes");
-        
-        this.CurrentPositionX = 100;
-        this.CurrentPositionY = 200;
-        
-        ValueCard.style.left = this.CurrentPositionX;
-        ValueCard.style.top = this.CurrentPositionY;
-        
 
         this.DifferenceX = 0;
         this.DifferenceY = 0;
+        this.CurrentPositionX = 100;
+        this.CurrentPositionY = 200;
         
         this.CardState = 'none';
+		this.OriginalTransition = 'padding 0.2s';
+		
+        // Add the ondragstart event listener
+        this.ValueCard.addEventListener("touchstart", this.TouchStart);
+        this.ValueCard.addEventListener("touchmove", this.TouchMove);
+        this.ValueCard.addEventListener("touchend", this.TouchEnd);
+		        
         
+        ValueCard.style.left = this.CurrentPositionX;
+        ValueCard.style.top = this.CurrentPositionY;  
+		
     }
 	Tick(DeltaTime)
 	{
@@ -34,10 +36,12 @@ class Screen_SelectValues extends Screen_Base
 		
         // width: 100px; 
         // height: 200px;
+        console.log("dif: " + this.DifferenceX);
         
-        // TODO: Solve value in caldd 'CardState' not updating/reading correctly in tick
+        // TODO: Solve value in class 'CardState' not updating/reading correctly in tick
         //this.CardState = 'yes'
         // console.log(this.CardState);
+		// console.log('transition: ' + this.OriginalTransition);
 		// if (this.CardState == 'yes')
         // {
         //     this.DropSection_Yes.style.width = 120 + 'px';
@@ -73,6 +77,10 @@ class Screen_SelectValues extends Screen_Base
         this.DifferenceX = ValueCard.offsetLeft - touchLocation.pageX;
         this.DifferenceY = ValueCard.offsetTop - touchLocation.pageY;
         console.log("Difference X: " + this.DifferenceX + " Y: " + this.DifferenceY);
+		this.OriginalTransition = 'padding .2s'
+		console.log('transition: ' + this.OriginalTransition);
+		ValueCard.style.transition = 'padding 0.2s';
+        ValueCard.style.paddingBottom = 20 + '%';
                 
         event.preventDefault();
     }
@@ -108,6 +116,7 @@ class Screen_SelectValues extends Screen_Base
         {
             DropSection_Yes.style.width = 120 + 'px';
             DropSection_Yes.style.height = 260 + 'px';
+			// ValueCard.style
         }
         else if (this.CardState == 'no')
         {
@@ -124,6 +133,18 @@ class Screen_SelectValues extends Screen_Base
         
         event.preventDefault(); 
     }
+	
+	TouchEnd(event)
+	{
+		let test = document.getElementById("ValueCard");
+        ValueCard.style.paddingBottom = 0 + '%';
+		ValueCard.style.transition = 'padding 0.2s';
+		ValueCard.style.transition += ', left .4s, top .4s';
+        ValueCard.style.left = 100;
+        ValueCard.style.top = 200;    
+		
+        event.preventDefault();
+	}
 }
 
 export {Screen_SelectValues};

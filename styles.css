@@ -181,6 +181,7 @@ h3
     width: 150px; 
     height: 150px;
     border-radius: 50%;
+	
 }
 
 /* TODO: Need to fix swipe areas expanding scroll area*/
@@ -198,7 +199,7 @@ h3
     height: 200px;
     border-radius: 50%;
     
-    transition: all 0.2s;
+    transition: width 0.2s, height 0.2s;
 }
 
 .Swipe-Left
