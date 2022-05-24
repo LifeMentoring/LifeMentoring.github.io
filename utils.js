@@ -11,3 +11,15 @@ export function elementsOverlap(el1, el2)
       domRect1.left > domRect2.right
     );
 }
+
+export function CreateDebugBlock(posX, posY, color, parent)
+{
+	let NewElement = document.createElement("div");
+	NewElement.style.backgroundColor = color;
+	NewElement.style.width = "10px";
+	NewElement.style.height = "10px";
+	NewElement.style.position = "absolute";
+	NewElement.style.left = posX;
+	NewElement.style.top = posY;
+	parent.appendChild(NewElement);
+}
