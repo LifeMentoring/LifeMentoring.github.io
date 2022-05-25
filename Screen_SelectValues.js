@@ -17,7 +17,10 @@ class Screen_SelectValues extends Screen_Base
 
         this.TouchDifferenceX = 0;
         this.TouchDifferenceY = 0;
+        this.LastPositionX = 0;
+        this.LastPositionY = 0;
         
+        this.Values = ["Honesty", "Courage", "Humour", "Bravery"];
         const CardRect = ValueCard.getBoundingClientRect();
         
         this.ClientDifferenceX = ValueCard.style.left - CardRect.left;
@@ -26,9 +29,9 @@ class Screen_SelectValues extends Screen_Base
         this.Height = CardRect.bottom - CardRect.top;
         
         
-        this.CurrentPositionX = windowWidth / 2;
-        this.CurrentPositionY = windowHeight / 2;
-        this.SetPosition(this.CurrentPositionX, this.CurrentPositionY);
+        // this.CurrentPositionX = windowWidth / 2;
+        // this.CurrentPositionY = windowHeight / 2;
+        this.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
         
         this.CardState = 'none';
 		this.OriginalTransition = 'padding 0.2s';
@@ -37,6 +40,7 @@ class Screen_SelectValues extends Screen_Base
         ValueCard.addEventListener("touchmove", this.TouchMove.bind(event, this));
         ValueCard.addEventListener("touchend", this.TouchEnd.bind(event, this));
 		
+        ValueCard.childNodes[1].textContent = this.Values[this.Values.length - 1];
         
         // ValueCard.style.left = this.CurrentPositionX;
         // ValueCard.style.top = this.CurrentPositionY;  
@@ -52,8 +56,17 @@ class Screen_SelectValues extends Screen_Base
 	}
     SetPosition(X, Y)
     {
-        ValueCard.style.left = X + this.ClientDifferenceX;
-        ValueCard.style.top = Y + this.ClientDifferenceY;
+        if (X == this.CurrentPositionX && Y == this.CurrentPositionY)
+            return;
+        this.LastPositionX = this.CurrentPositionX;
+        this.LastPositionY = this.CurrentPositionX;
+        
+        this.CurrentPositionX = X;
+        this.CurrentPositionY = Y;
+        ValueCard.style.left = this.CurrentPositionX;
+        ValueCard.style.top = this.CurrentPositionY;
+        // ValueCard.style.left = X + this.ClientDifferenceX;
+        // ValueCard.style.top = Y + this.ClientDifferenceY;
     }
     
     TouchStart(object, event)
@@ -85,8 +98,8 @@ class Screen_SelectValues extends Screen_Base
         let NewY = touchLocation.pageY + object.DifferenceY;
         object.SetPosition(NewX,NewY);
         
-        ValueCard.style.left = NewX + 'px';
-        ValueCard.style.top = NewY + 'px';
+        // ValueCard.style.left = NewX + 'px';
+        // ValueCard.style.top = NewY + 'px';
         
         if (elementsOverlap(ValueCard, DropSection_Yes))
         {
@@ -137,22 +150,28 @@ class Screen_SelectValues extends Screen_Base
         {
             const ValueRect = object.ValueCard.getBoundingClientRect();
             const YesRect = object.DropSection_Yes.getBoundingClientRect();
-            if (ValueRect.left > YesRect.left - AcceptOffset)
+            
+            const VelX = object.CurrentPositionX - object.LastPositionX;
+            console.log("vel: " + VelX);
+            const Success = VelX > 6 || ValueRect.left > YesRect.left - AcceptOffset;
+            if (Success)
             {
                 LockedIn = true;
-                ValueCard.style.left = windowWidth + 'px';
-                // object.SetPosition(object.CurrentPositionX + AcceptOffset, object.CurrentPositionY);
+                //ValueCard.style.left = (windowWidth - 10) + 'px';
+                object.SetPosition(object.CurrentPositionX + 200, object.CurrentPositionY);
             }
         }
         else if (object.CardState == 'no')
         {
             const ValueRect = object.ValueCard.getBoundingClientRect();
             const NoRect = object.DropSection_No.getBoundingClientRect();
-            if (ValueRect.right < NoRect.right + AcceptOffset)
+            const VelX = object.LastPositionX - object.CurrentPositionX;
+            const Success = VelX > 6 || ValueRect.right < NoRect.right + AcceptOffset;
+            if (Success)
             {
                 LockedIn = true;
-                ValueCard.style.left = (-200) + 'px';
-                // object.SetPosition(object.CurrentPositionX - AcceptOffset, object.CurrentPositionY);
+                //ValueCard.style.left = (-200) + 'px';
+                object.SetPosition(object.CurrentPositionX - 200, object.CurrentPositionY);
             }
         }
         if (!LockedIn)  
@@ -160,7 +179,8 @@ class Screen_SelectValues extends Screen_Base
             object.CardState = 'none';
             
             ValueCard.style.paddingBottom = 0 + '%';
-            object.SetPosition(windowWidth / 2, windowHeight / 2);
+            object.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
+            //object.SetPosition(windowWidth / 2, windowHeight / 2);
         }
         else
         {
@@ -171,10 +191,21 @@ class Screen_SelectValues extends Screen_Base
         event.preventDefault();
         function TempReturn()
         {
+            object.Values.pop();
+            if (object.Values.length <= 0)
+            {
+                // TODO:
+                // NEXT PAGE
+                return;
+            }
+            
             ValueCard.style.transition = object.OriginalTransition;
-            object.SetPosition(windowWidth / 2, windowHeight / 2);
+            object.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
+            //object.SetPosition(windowWidth / 2, windowHeight / 2);
             object.CardState = 'none';
             object.CheckCardDropSection();
+            ValueCard.style.paddingBottom = 0 + '%';
+            ValueCard.childNodes[1].textContent = object.Values[object.Values.length - 1];
         }
 	}
     

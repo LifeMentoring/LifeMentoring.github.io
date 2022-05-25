@@ -20,6 +20,7 @@ else
 
 function Setup()
 {
+    
     let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues');
     let RefineValuesScreen = new Screen_RefineValues('Screen-RefineValues');
     let CompareValuesScreen = new Screen_Base('Screen-CompareValues');
@@ -46,7 +47,22 @@ function Setup()
     ChangeScreen(CurrentIndex);
 	
 	setInterval(Tick, DeltaTime, DeltaTime);
+    
+    
+    addEventListener("touchstart", TouchStart);
 	
+}
+
+function TouchStart()
+{
+    const isAndroid = navigator.userAgent.match(/Android/i);
+    // if(isAndroid){
+    //     window.scrollTo(0,1);
+    //  }
+    if (!document.fullscreenElement && isAndroid)
+    {
+        document.firstChild.requestFullscreen();
+    }
 }
 
 function Tick(DeltaTime)
