@@ -1,9 +1,9 @@
 class Screen_Base
 {
-    constructor(ElementID)
+    constructor(ElementID, ScreenCompleteFunction)
     {
         this.Element = document.getElementById(ElementID);
-        
+        this.ScreenCompleteFunction = ScreenCompleteFunction;
     }
     
     SetVisibility(visible)

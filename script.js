@@ -1,6 +1,7 @@
 import {Screen_SelectValues} from './Screen_SelectValues.js'
 import {Screen_RefineValues} from './Screen_RefineValues.js'
 import {Screen_Base} from './Screen_Base.js'
+import {Dev} from './Dev.js'
 
 const TicksPerSecond = 60;
 const DeltaTime = 1 / 60;
@@ -8,6 +9,8 @@ const DeltaTime = 1 / 60;
 let CurrentIndex = 0;
 let Screens = [];
 
+let DevObject;
+const bDevEnabled = true;
 
 if (document.readyState == 'loading')
 {
@@ -20,29 +23,19 @@ else
 
 function Setup()
 {
+    if (bDevEnabled)
+    DevObject = new Dev(ScreenComplete);
     
-    let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues');
-    let RefineValuesScreen = new Screen_RefineValues('Screen-RefineValues');
-    let CompareValuesScreen = new Screen_Base('Screen-CompareValues');
-    let TopValuesScreen = new Screen_Base('Screen-TopValues');
+    let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues', ScreenComplete);
+    let RefineValuesScreen = new Screen_RefineValues('Screen-RefineValues', ScreenComplete);
+    let CompareValuesScreen = new Screen_Base('Screen-CompareValues', ScreenComplete);
+    let TopValuesScreen = new Screen_Base('Screen-TopValues', ScreenComplete);
     
     Screens.push(SelectValuesScreen);
     Screens.push(RefineValuesScreen);
     Screens.push(CompareValuesScreen);
     Screens.push(TopValuesScreen);
-    
-    
-    const NextButton = document.getElementById('NextButton');
-    if (NextButton)
-    {
-        NextButton.addEventListener('click', NextClicked);
-    }
-    const PreviousButton = document.getElementById('PreviousButton');
-    
-    if (PreviousButton)
-    {
-        PreviousButton.addEventListener('click', PreviousClicked);
-    }
+        
     
     ChangeScreen(CurrentIndex);
 	
@@ -67,18 +60,16 @@ function TouchStart()
 
 function Tick(DeltaTime)
 {
+    if (DevObject)
+        DevObject.Tick(DeltaTime);
 	Screens[CurrentIndex].Tick(DeltaTime);
 }
 
-
-function NextClicked()
+function ScreenComplete()
 {
     ChangeScreen(CurrentIndex + 1);
 }
-function PreviousClicked()
-{
-    ChangeScreen(CurrentIndex - 1);
-}
+
 
 function ChangeScreen(screenIndex)
 {	

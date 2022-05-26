@@ -7,14 +7,13 @@ const windowWidth = document.firstChild.getBoundingClientRect().right;
 class Screen_SelectValues extends Screen_Base
 {
 	
-    constructor(ElementID)
+    constructor(ElementID, ScreenCompleteFunction)
     {
-        super(ElementID);
+        super(ElementID, ScreenCompleteFunction);
         
         this.ValueCard = document.getElementById("ValueCard");
 		this.DropSection_No = document.getElementById("DropSection_No");
 		this.DropSection_Yes = document.getElementById("DropSection_Yes");
-
         this.TouchDifferenceX = 0;
         this.TouchDifferenceY = 0;
         this.LastPositionX = 0;
@@ -114,7 +113,7 @@ class Screen_SelectValues extends Screen_Base
             object.CardState = 'none';
         }
         
-        object.CheckCardDropSection(object);
+        object.CheckCardDropSection();
         
         event.preventDefault(); 
     }
@@ -124,17 +123,25 @@ class Screen_SelectValues extends Screen_Base
         if (this.CardState == 'yes') {
             DropSection_Yes.style.width = 120 + 'px';
             DropSection_Yes.style.height = 260 + 'px';
+            DropSection_Yes.style.color = "black";
+            DropSection_Yes.style.backgroundColor = "rgba(200, 200, 200, 0.7)";
         }
         else if (this.CardState == 'no') {
             DropSection_No.style.width = 120 + 'px';
             DropSection_No.style.height = 260 + 'px';
+            DropSection_No.style.color = "black";
+            DropSection_No.style.backgroundColor = "rgba(200, 200, 200, 0.7)";
         }
 
         else {
             DropSection_Yes.style.width = 100 + 'px';
             DropSection_Yes.style.height = 200 + 'px';
+            DropSection_Yes.style.color = "grey";
+            DropSection_Yes.style.backgroundColor = "rgba(221, 221, 221, 0.349)";
             DropSection_No.style.width = 100 + 'px';
             DropSection_No.style.height = 200 + 'px';
+            DropSection_No.style.color = "grey";
+            DropSection_No.style.backgroundColor = "rgba(221, 221, 221, 0.349)";
         }
     }
 
@@ -194,8 +201,8 @@ class Screen_SelectValues extends Screen_Base
             object.Values.pop();
             if (object.Values.length <= 0)
             {
-                // TODO:
                 // NEXT PAGE
+                object.ScreenCompleteFunction();
                 return;
             }
             
