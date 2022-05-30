@@ -24,7 +24,7 @@ else
 function Setup()
 {
     if (bDevEnabled)
-    DevObject = new Dev(ScreenComplete);
+    DevObject = new Dev(DevScreenComplete);
     
     let SelectValuesScreen = new Screen_SelectValues('Screen-SelectValues', ScreenComplete);
     let RefineValuesScreen = new Screen_RefineValues('Screen-RefineValues', ScreenComplete);
@@ -65,9 +65,29 @@ function Tick(DeltaTime)
 	Screens[CurrentIndex].Tick(DeltaTime);
 }
 
-function ScreenComplete()
+function DevScreenComplete()
+{
+    if (CurrentIndex == 0)
+    {
+        const Values = ["Honesty", "Commitment", "Curiousity", "Wisdom", "Empathy", "Courage", "Patience"
+        , "Helpfulness", "Understanding", "Awareness", "Intuition", "Knowledge", "Growth (Quest for knowledge)", "Creativity", "Self Reliance", "Dedication"
+        , "Dependability", "Consideration", "Trust", "Humour", "Resilience", "Self Respect", "Optimism", "Contentment", "Sharing", "Caring"
+        , "Friendship", "Respect for others", "Integrity"];
+        let ImportantValues = [];
+        for (let i = 0; i < Values.length; i++)
+        {
+            if (Math.random() > 0.5)
+                ImportantValues.push(Values[i]);
+        }
+        ScreenComplete(ImportantValues);
+    }
+    else
+        ScreenComplete();
+}
+function ScreenComplete(info)
 {
     ChangeScreen(CurrentIndex + 1);
+    Screens[CurrentIndex].ReceivedPreviousScreenInfo(info);
 }
 
 

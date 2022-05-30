@@ -17,7 +17,7 @@ class Dev
         this.StartY = -1;
         this.CurrentX = -1;
         this.CurrentY = -1;
-        this.HoldDebugTime = 3000.0;
+        this.HoldDebugTime = 1 * 1000.0;
         
         this.HoldTimeoutIndex = -1;
     }

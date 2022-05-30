@@ -22,6 +22,11 @@ class Screen_Base
 	{
         
 	}
+    
+    ReceivedPreviousScreenInfo(info)
+    {
+        
+    }
 }
 
 

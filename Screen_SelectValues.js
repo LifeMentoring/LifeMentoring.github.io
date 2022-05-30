@@ -19,7 +19,12 @@ class Screen_SelectValues extends Screen_Base
         this.LastPositionX = 0;
         this.LastPositionY = 0;
         
-        this.Values = ["Honesty", "Courage", "Humour", "Bravery"];
+        this.Values = ["Honesty", "Commitment", "Curiousity", "Wisdom", "Empathy", "Courage", "Patience"
+        , "Helpfulness", "Understanding", "Awareness", "Intuition", "Knowledge", "Growth (Quest for knowledge)", "Creativity", "Self Reliance", "Dedication"
+        , "Dependability", "Consideration", "Trust", "Humour", "Resilience", "Self Respect", "Optimism", "Contentment", "Sharing", "Caring"
+        , "Friendship", "Respect for others", "Integrity"];
+        this.ImportantValues = [];
+        
         const CardRect = ValueCard.getBoundingClientRect();
         
         this.ClientDifferenceX = ValueCard.style.left - CardRect.left;
@@ -191,31 +196,49 @@ class Screen_SelectValues extends Screen_Base
         }
         else
         {
-            setTimeout(TempReturn, 400)
+            // Remove value and store
+            const NewValue = object.Values.pop();
+            if (object.CardState == 'yes')
+            {
+                // Card was selected as important, store it
+                object.ImportantValues.push(NewValue);
+                
+                console.log("Saved Values:");
+                
+                for (let i = 0; i < object.ImportantValues.length; i++)
+                {
+                    console.log("[" + i + "] " + object.ImportantValues[i]);
+                }
+            }
+            setTimeout(ReturnCard, 400)
         }
         object.CheckCardDropSection();
 		
         event.preventDefault();
-        function TempReturn()
+        function ReturnCard()
         {
-            object.Values.pop();
             if (object.Values.length <= 0)
             {
                 // NEXT PAGE
-                object.ScreenCompleteFunction();
+                object.ScreenCompleteFunction(object.ImportantValues);
                 return;
             }
             
-            ValueCard.style.transition = object.OriginalTransition;
-            object.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
-            //object.SetPosition(windowWidth / 2, windowHeight / 2);
-            object.CardState = 'none';
-            object.CheckCardDropSection();
-            ValueCard.style.paddingBottom = 0 + '%';
-            ValueCard.childNodes[1].textContent = object.Values[object.Values.length - 1];
+            object.NewCard();
         }
 	}
     
+
+    NewCard()
+    {
+        ValueCard.style.transition = this.OriginalTransition;
+        this.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
+        //object.SetPosition(windowWidth / 2, windowHeight / 2);
+        this.CardState = 'none';
+        this.CheckCardDropSection();
+        ValueCard.style.paddingBottom = 0 + '%';
+        ValueCard.childNodes[1].textContent = this.Values[this.Values.length - 1];
+    }
 }
 
 export {Screen_SelectValues};
