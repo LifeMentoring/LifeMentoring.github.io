@@ -38,7 +38,7 @@ class Screen_SelectValues extends Screen_Base
         this.SetPosition(windowWidth / 2 - 100, windowHeight / 2 - 150);
         
         this.CardState = 'none';
-		this.OriginalTransition = 'padding 0.2s';
+		this.OriginalTransition = 'padding 0.2s, width 0.2s, height 0.2s';
 		
         ValueCard.addEventListener("touchstart", this.TouchStart.bind(event, this));
         ValueCard.addEventListener("touchmove", this.TouchMove.bind(event, this));
@@ -91,6 +91,12 @@ class Screen_SelectValues extends Screen_Base
 		console.log('transition: ' + object.OriginalTransition);
 		ValueCard.style.transition = object.OriginalTransition;
         ValueCard.style.paddingBottom = 20 + '%';
+		const SizeIncrease = 10;
+		const NewSize = 150 + SizeIncrease;
+		ValueCard.style.width = NewSize + 'px';
+		ValueCard.style.height = NewSize + 'px';
+		// object.DifferenceX -= SizeIncrease / 2;
+		// object.DifferenceY -= SizeIncrease / 2;
                 
         event.preventDefault();
     }
@@ -154,6 +160,8 @@ class Screen_SelectValues extends Screen_Base
 	{
         ValueCard.style.transition = object.OriginalTransition;
         ValueCard.style.transition += ', left .4s, top .4s';
+		ValueCard.style.width = 150 + 'px';
+		ValueCard.style.height = 150 + 'px';
         
         // TODO: Check based on far position or velocity if card state should lock in
         let LockedIn = false;

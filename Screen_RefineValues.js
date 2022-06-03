@@ -8,8 +8,12 @@ class Screen_RefineValues extends Screen_Base
         	
         this.RefineContainer = document.getElementById("RefineValues-ItemsContainer");
         this.RefineTotalTitle = document.getElementById("Refine-Total-Heading");
-        
+        this.NextButton = document.getElementById("Refine-Next-Button");
+		this.NextButton.addEventListener('click', this.NextClicked.bind(event, this));
+		this.NextButton.disabled = true;
+		
         this.CurrentSelectedValues = [];
+		
     }
     
     ReceivedPreviousScreenInfo(info)
@@ -44,7 +48,24 @@ class Screen_RefineValues extends Screen_Base
             object.CurrentSelectedValues.pop(item);
             
         object.RefineTotalTitle.innerHTML = object.CurrentSelectedValues.length + "/" + 12;
+		
+		object.CheckNextButton();
     }
+	
+	CheckNextButton()
+	{
+		// TODO: WHAT IF MINIMUM IS TO BIG FOR AVAILABLE OPTIONS?
+		this.NextButton.disabled = true;
+		if (this.CurrentSelectedValues.length < 12 || this.CurrentSelectedValues.length > 15)
+			return;			
+			
+		this.NextButton.disabled = false;
+	}
+	
+	NextClicked(object, event)
+	{
+		object.ScreenCompleteFunction(object.CurrentSelectedValues);
+	}
 }
 
 export {Screen_RefineValues};

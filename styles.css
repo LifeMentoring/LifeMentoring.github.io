@@ -270,9 +270,26 @@ h3
     border-radius: 20px;;
     
 }
-
-  
-  
+#Refine-Next-Button
+{
+	background-color: rgba(231, 231, 231, 0.849);
+	border-radius: 10px;
+	border-width: 0;
+	/* margin-bottom: -50px; */
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: auto;
+	padding-top: 2%;
+}
+#Refine-Next-Button:disabled
+{
+	background-color: rgba(231, 231, 231, 0.212);
+}
+#Refine-Next-Button:disabled h2
+{
+    color: #3b3b3b6c;
+}
   
   
   
@@ -336,3 +353,5 @@ h3
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
+  
+  
